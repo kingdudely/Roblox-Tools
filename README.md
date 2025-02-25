@@ -5,7 +5,7 @@ Click on the green button labeled `<> Code` and then click on `Download ZIP`.
 
 Then, if you're on Windows, go to file explorer and find the ZIP file. (If you're not on Windows, google "how to extract a ZIP file on `your operating system here`") 
 
-Then right click on the downloaded file (the ZIP file) and click on `Extract All...`.
+Then right click on the downloaded file (the ZIP file) and click on `Extract All...`. Next, do what it says and wait for it to finish extracting. You'll see a new folder after it finishes.
 Now, go into Chrome and type in `chrome://extensions`. Then, if you find anything called `Developer Mode`, check it so it looks like this:
 
 ![image](https://github.com/user-attachments/assets/58a966b7-3157-4b99-b8d2-e49eae8ffd3d)
