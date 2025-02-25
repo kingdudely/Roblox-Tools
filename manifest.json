@@ -1,0 +1,25 @@
+{
+  "name": "ROBLOX Tools",
+  "description": "Multiple tools that help you with ROBLOX stuff.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "cookies",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://www.roblox.com/*"
+  ],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "main.js"
+  },
+  "icons": {
+    "16": "sound.png",
+    "32": "sound.png",
+    "48": "sound.png",
+    "128": "sound.png"
+  }
+}
