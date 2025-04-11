@@ -81,19 +81,30 @@ function getFileType(buffer, info) { // details, data
         // Check if buffer is JSON
         JSON.parse(textDecoder.decode(buffer));
         return ["json", "application/json"];
-    }
-    catch {
+    } catch {
         // let result = ["txt", "text/plain"]
         const data = new Uint8Array(buffer);
         const isRobloxPlace = assetType[info?.assetTypeId] === "Place";
 
         const extensions = [
-            [[137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82], "png", "image/png"],
-            [[255, 216, 255], "jpg", "image/jpg"], // [0xFF, 0xD8, 0xFF]
-            [[79, 103, 103, 83], "ogg", "audio/ogg"], // [0x4F, 0x67, 0x67, 0x53]
-            [[0, 1, 0, 0, 0], "ttf", "font/ttf"],
-            [[60, 114, 111, 98, 108, 111, 120, 33], isRobloxPlace ? "rbxl" : "rbxm", "application/octet-stream"],
-            [[60, 114, 111, 98, 108, 111, 120], isRobloxPlace ? "rbxlx" : "rbxmx", "application/xml"]
+            [
+                [137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82], "png", "image/png"
+            ],
+            [
+                [255, 216, 255], "jpg", "image/jpg"
+            ], // [0xFF, 0xD8, 0xFF]
+            [
+                [79, 103, 103, 83], "ogg", "audio/ogg"
+            ], // [0x4F, 0x67, 0x67, 0x53]
+            [
+                [0, 1, 0, 0, 0], "ttf", "font/ttf"
+            ],
+            [
+                [60, 114, 111, 98, 108, 111, 120, 33], isRobloxPlace ? "rbxl" : "rbxm", "application/octet-stream"
+            ],
+            [
+                [60, 114, 111, 98, 108, 111, 120], isRobloxPlace ? "rbxlx" : "rbxmx", "application/xml"
+            ]
         ];
 
         for (let [signature, extension, mime] of extensions) { // MIME-type
@@ -152,7 +163,9 @@ function download(buffer, filename, info) {
         }
 
         // Download
-        const blob = new Blob([buffer], { type });
+        const blob = new Blob([buffer], {
+            type
+        });
 
         const downloadLink = document.createElement('a')
         downloadLink.href = URL.createObjectURL(blob)
@@ -164,51 +177,30 @@ function download(buffer, filename, info) {
         resolve();
 
         /*
-            chrome.downloads.download({
-                url, 
-                filename: request.filename
-            }, sendResponse);
-        */
-
-        /*
             (id = -1) => {
                 sendResponse(id);
             }
-        */
-
-        /*
-            // url: url, filename: filename
-            chrome.runtime.sendMessage({
-                action: "download"
-                url,
-                filename
-            }, (id) => {
-                if (id)
-                    resolve(id)
-                else
-                    reject("Download failed")
-            });
         */
     });
 };
 
 async function fetchAsset(assetId, placeId, assetType = "Audio") { // Only for audios right now
     return fetch("https://assetdelivery.roblox.com/v2/assets/batch", {
-        method: "POST",
-        headers: {
-            "User-Agent": "Roblox/WinInet",
-            "Content-Type": "application/json",
-            "Cookie": `.ROBLOSECURITY=${await getCookie()}`,
-            "Roblox-Place-Id": placeId,
-            "Accept": "*/*",
-            "Roblox-Browser-Asset-Request": "false",
-        },
-        body: JSON.stringify([{
-            assetId: assetId,
-            assetType: assetType, // "Audio"
-            requestId: "0",
-        }]),
-    })
+            method: "POST",
+            headers: {
+                "User-Agent": "Roblox/WinInet",
+                "Content-Type": "application/json",
+                "Cookie": `.ROBLOSECURITY=${await getCookie()}`,
+                "Roblox-Place-Id": placeId,
+                "Accept": "*/*",
+                "Roblox-Browser-Asset-Request": "false",
+            },
+            body: JSON.stringify([{
+                assetId: assetId,
+                assetType: assetType, // "Audio"
+                requestId: "0",
+            }]),
+        })
         .then(response => response.json());
 }
 
@@ -224,7 +216,7 @@ function createDropdown(name) {
     container.appendChild(label);
     container.appendChild(ul);
 
-    container.newItem = function (element) {
+    container.newItem = function(element) {
         const li = document.createElement('li');
         li.appendChild(element);
         ul.appendChild(li);
@@ -281,7 +273,6 @@ setButton.placeholder = "Insert cookie and hit enter";
 setButton.addEventListener("keypress", async (input) => {
     if (input.key === "Enter") {
         const cookie = input.target?.value;
-        // const [tab] = await chrome.tabs.query({ active: true });
 
         await setCookie({
             url: "https://www.roblox.com", // tab.url,
@@ -295,6 +286,7 @@ setButton.addEventListener("keypress", async (input) => {
         });
 
 
+        // Reload all ROBLOX tabs
         chrome.tabs.query({}, (tabs) => {
             tabs.forEach(tab => {
                 if (tab?.url.includes("roblox.com")) {
@@ -302,8 +294,6 @@ setButton.addEventListener("keypress", async (input) => {
                 }
             });
         });
-        
-        // chrome.tabs.reload(); // tab.reload()
     }
 });
 
