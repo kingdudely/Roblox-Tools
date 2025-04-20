@@ -1,16 +1,14 @@
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	switch (request.action) {
-		case "getCookie": {
-			chrome.cookies.get({
-				url: request.url,
-				name: request.name
-			}, sendResponse);
+chrome.runtime.onMessage.addListener((request, _, sendResponse) => {
+	const { action, ...arguments } = request;
 
+	switch (action) {
+		case "getCookie": {
+			chrome.cookies.get(arguments, sendResponse);
 			return true;
 		}
 
 		case "setCookie": {
-			chrome.cookies.set(request.arguments, sendResponse);
+			chrome.cookies.set(arguments, sendResponse);
 			return true;
 		}
 	}
