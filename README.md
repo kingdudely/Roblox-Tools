@@ -24,4 +24,5 @@ Now, you're done! If it automatically disables the extension for you, just look 
 
 If it is not working, go back to `chrome://extensions` and find the `ROBLOX Tools` extension again. Then, click the small, blue `Errors` button underneath the extension details and make a new Github issue for this repository and send a screenshot!
 ![image](https://github.com/user-attachments/assets/c730cdfb-ea9b-4b35-afc0-0b1ce4cc6bc4)
+
 (In this example, there is no Errors button because it is working fine, but if there was one it would be alongside the `Details Remove Reload`)
