@@ -1,3 +1,5 @@
+alert("You must be logged into ROBLOX to use most of the features that come with this extension.")
+
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
 
