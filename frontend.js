@@ -130,7 +130,7 @@ function setCookie(arguments) { // parameters
     return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({
             action: "setCookie",
-            arguments
+            ...arguments
         }, (cookie) => {
             if (cookie)
                 resolve(cookie);
