@@ -266,7 +266,7 @@ setButton.addEventListener("keypress", async (input) => {
 
 
         // Reload all ROBLOX tabs
-        chrome.tabs.query({ url: "*://*.roblox.com/*" }, function (tabs) {
+        chrome.tabs.query({ url: "*://*.roblox.com/*" }, (tabs) => {
             tabs.forEach(tab => {
                 console.log(tab.url);
             });
