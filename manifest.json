@@ -4,22 +4,22 @@
   "version": "1.0",
   "manifest_version": 3,
   "permissions": [
-    "cookies",
-    "downloads"
+    "tabs",
+    "cookies"
   ],
   "host_permissions": [
-    "https://www.roblox.com/*"
+    "https://*.roblox.com/*"
   ],
   "action": {
     "default_popup": "index.html"
   },
   "background": {
-    "service_worker": "main.js"
+    "service_worker": "backend.js"
   },
   "icons": {
-    "16": "sound.png",
-    "32": "sound.png",
-    "48": "sound.png",
-    "128": "sound.png"
+    "16": "unicorn.png",
+    "32": "unicorn.png",
+    "48": "unicorn.png",
+    "128": "unicorn.png"
   }
 }
