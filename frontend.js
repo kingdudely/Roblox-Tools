@@ -152,7 +152,7 @@ function download(buffer, filename, info) {
     }
 
     // Download
-    const blob = new Blob([buffer], { type });
+    const blob = new Blob([buffer], {type});
 
     // Link that downloads the file when clicked
     const link = document.createElement('a')
@@ -175,8 +175,8 @@ async function fetchAsset(assetId, placeId, assetType = "Audio") { // Only for a
             "Roblox-Browser-Asset-Request": "false",
         },
         body: JSON.stringify([{
-            assetId: assetId,
-            assetType: assetType, // "Audio"
+            assetId,
+            assetType, // "Audio"
             requestId: "0",
         }]),
     })
@@ -266,11 +266,9 @@ setButton.addEventListener("keypress", async (input) => {
 
 
         // Reload all ROBLOX tabs
-        chrome.tabs.query({}, (tabs) => {
+        chrome.tabs.query({ url: "*://*.roblox.com/*" }, function (tabs) {
             tabs.forEach(tab => {
-                if (tab?.url.includes("roblox.com")) {
-                    chrome.tabs.reload(tab?.id);
-                }
+                console.log(tab.url);
             });
         });
     }
