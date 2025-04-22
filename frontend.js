@@ -185,12 +185,10 @@ async function fetchAsset(assetId, placeId, assetType = "Audio") { // Only for a
         .then(response => response.json());
 }
 
-function createDropdown(id) {
-    const container = document.getElementById(id);
+function newList() {
     const ul = document.createElement('ul');
-    container.appendChild(ul);
 
-    container.newItem = function (element) {
+    ul.newItem = function (element) {
         const li = document.createElement('li');
         li.appendChild(element);
         ul.appendChild(li);
@@ -198,11 +196,16 @@ function createDropdown(id) {
         return li;
     };
 
-    return container;
+    ul.newItems = function (...elements) {
+        elements.forEach(this.newItem);
+    };
+
+    return ul;
 }
 
 // Assets category
-const Assets = createDropdown("Assets");
+const Assets = document.getElementById("Assets");
+const assetList = Assets.appendChild(newList());
 
 // Items
 const downloadAsset = document.createElement("input");
@@ -227,11 +230,12 @@ downloadAsset.addEventListener("keypress", async (input) => {
     }
 });
 
-Assets.newItem(downloadAsset);
+assetList.newItem(downloadAsset);
 //
 
 // Miscellaneous category
-const Miscellaneous = createDropdown("Miscellaneous");
+const Miscellaneous = document.getElementById("Miscellaneous");
+const miscellaneousList = Miscellaneous.appendChild(newList());
 
 // Items
 const copyButton = document.createElement("button");
@@ -271,9 +275,7 @@ setButton.addEventListener("keypress", async (input) => {
     }
 });
 
-Miscellaneous.newItem(copyButton);
-Miscellaneous.newItem(setButton);
+miscellaneousList.newItems(copyButton, setButton);
 //
 
-document.body.appendChild(Assets);
-document.body.appendChild(Miscellaneous);
+document.body.append(Assets, Miscellaneous);
