@@ -185,22 +185,17 @@ async function fetchAsset(assetId, placeId, assetType = "Audio") { // Only for a
         .then(response => response.json());
 }
 
-function createDropdown(name) {
-    const container = document.createElement('div');
-    const label = document.createElement('label');
-    const checkbox = document.createElement('input');
+function createDropdown(id) {
+    const container = document.getElementById(id);
     const ul = document.createElement('ul');
-
-    checkbox.type = 'checkbox';
-    label.appendChild(checkbox);
-    label.appendChild(document.createTextNode(name));
-    container.appendChild(label);
     container.appendChild(ul);
 
     container.newItem = function (element) {
         const li = document.createElement('li');
         li.appendChild(element);
         ul.appendChild(li);
+
+        return li;
     };
 
     return container;
@@ -223,7 +218,7 @@ downloadAsset.addEventListener("keypress", async (input) => {
 
         if (assetType[details.AssetTypeId] === "Audio" && !details.IsPublicDomain) {
             let fetched = await fetchAsset(assetId, prompt("Since this asset is a private audio, you have to include the ID of the Place it is from."));
-            alert(JSON.stringify(fetched));
+            // alert(JSON.stringify(fetched));
             downloadUrl = fetched[0].locations[0].location;
         }
 
